@@ -201,21 +201,24 @@ void main() {
         transport.dispose();
       });
 
-      test('TransportFailure indicates not retryable for connection errors', () async {
-        final transport = ProxyTransport(
-          proxyUrl: 'https://api.example.com/reddit',
-          connectTimeout: const Duration(milliseconds: 1),
-        );
+      test(
+        'TransportFailure indicates not retryable for connection errors',
+        () async {
+          final transport = ProxyTransport(
+            proxyUrl: 'https://api.example.com/reddit',
+            connectTimeout: const Duration(milliseconds: 1),
+          );
 
-        final result = await transport.send('pixel123', {'events': []});
+          final result = await transport.send('pixel123', {'events': []});
 
-        expect(result, isA<TransportFailure>());
-        final failure = result as TransportFailure;
-        // Connection errors typically don't have status codes, so not retryable
-        expect(failure.isRetryable, isFalse);
+          expect(result, isA<TransportFailure>());
+          final failure = result as TransportFailure;
+          // Connection errors typically don't have status codes, so not retryable
+          expect(failure.isRetryable, isFalse);
 
-        transport.dispose();
-      });
+          transport.dispose();
+        },
+      );
     });
   });
 

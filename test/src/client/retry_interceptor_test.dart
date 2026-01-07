@@ -45,7 +45,10 @@ void main() {
           dio: mockDio,
           baseDelay: const Duration(milliseconds: 500),
         );
-        expect(interceptor.baseDelay, equals(const Duration(milliseconds: 500)));
+        expect(
+          interceptor.baseDelay,
+          equals(const Duration(milliseconds: 500)),
+        );
       });
 
       test('stores dio instance', () {
@@ -560,6 +563,5 @@ void main() {
         expect(stopwatch.elapsedMilliseconds, lessThan(100));
       });
     });
-
   });
 }

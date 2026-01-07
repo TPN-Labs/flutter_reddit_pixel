@@ -51,8 +51,14 @@ void main() {
         final stored = StoredEvent.fromEvent(event);
         final after = DateTime.now();
 
-        expect(stored.createdAt.isAfter(before.subtract(Duration(seconds: 1))), isTrue);
-        expect(stored.createdAt.isBefore(after.add(Duration(seconds: 1))), isTrue);
+        expect(
+          stored.createdAt.isAfter(before.subtract(Duration(seconds: 1))),
+          isTrue,
+        );
+        expect(
+          stored.createdAt.isBefore(after.add(Duration(seconds: 1))),
+          isTrue,
+        );
       });
     });
 
@@ -68,7 +74,10 @@ void main() {
 
         expect(stored.eventId, equals('test-event-id'));
         expect(stored.eventJson, equals('{"event_name":"Purchase"}'));
-        expect(stored.createdAt, equals(DateTime.parse('2024-01-15T10:30:00.000Z')));
+        expect(
+          stored.createdAt,
+          equals(DateTime.parse('2024-01-15T10:30:00.000Z')),
+        );
       });
 
       test('handles dynamic map keys', () {
