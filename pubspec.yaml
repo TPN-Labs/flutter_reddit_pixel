@@ -1,15 +1,27 @@
 name: reddit_pixel
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+description: >-
+  A privacy-centric, backend-agnostic Flutter library for Reddit Conversions
+  API (CAPI) v3. Supports direct and proxy transport modes with offline-first
+  persistence.
+version: 1.0.0
+homepage: https://github.com/TPN-Labs/flutter_reddit_pixel
+repository: https://github.com/TPN-Labs/flutter_reddit_pixel
+issue_tracker: https://github.com/TPN-Labs/flutter_reddit_pixel/issues
 
 environment:
   sdk: ^3.10.4
-  flutter: ">=1.17.0"
+  flutter: ">=3.0.0"
 
 dependencies:
+  connectivity_plus: ^6.0.3
+  crypto: ^3.0.3
+  dio: ^5.4.0
   flutter:
     sdk: flutter
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  meta: ^1.15.0
+  uuid: ^4.3.3
 
 dev_dependencies:
   flutter_test:
@@ -18,4 +30,3 @@ dev_dependencies:
   very_good_analysis: ">=8.0.0 <11.0.0"
 
 flutter:
-
