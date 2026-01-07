@@ -120,8 +120,9 @@ class RedditNormalizer {
   static NormalizedUserData _normalizeUserDataSync(RedditUserData data) {
     return NormalizedUserData(
       emailHash: data.email != null ? _hashEmail(data.email!) : null,
-      externalIdHash:
-          data.externalId != null ? _sha256Hash(data.externalId!) : null,
+      externalIdHash: data.externalId != null
+          ? _sha256Hash(data.externalId!)
+          : null,
       uuid: data.uuid,
       idfaHash: data.idfa != null ? _hashIdfa(data.idfa!) : null,
       aaidHash: data.aaid != null ? _hashAaid(data.aaid!) : null,

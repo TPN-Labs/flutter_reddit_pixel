@@ -96,8 +96,10 @@ void main() {
         );
 
         final (code, body) = switch (result) {
-          TransportSuccess(:final statusCode, :final responseBody) =>
-            (statusCode, responseBody),
+          TransportSuccess(:final statusCode, :final responseBody) => (
+            statusCode,
+            responseBody,
+          ),
           TransportFailure() => (-1, null),
         };
 
@@ -114,8 +116,10 @@ void main() {
 
         final (msg, retry) = switch (result) {
           TransportSuccess() => ('ok', false),
-          TransportFailure(:final message, :final isRetryable) =>
-            (message, isRetryable),
+          TransportFailure(:final message, :final isRetryable) => (
+            message,
+            isRetryable,
+          ),
         };
 
         expect(msg, equals('Timeout'));

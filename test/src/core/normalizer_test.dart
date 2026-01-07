@@ -21,10 +21,12 @@ void main() {
       });
 
       test('normalizes email to lowercase before hashing', () async {
-        final result1 =
-            await RedditNormalizer.normalizeAndHashEmail('USER@EXAMPLE.COM');
-        final result2 =
-            await RedditNormalizer.normalizeAndHashEmail('user@example.com');
+        final result1 = await RedditNormalizer.normalizeAndHashEmail(
+          'USER@EXAMPLE.COM',
+        );
+        final result2 = await RedditNormalizer.normalizeAndHashEmail(
+          'user@example.com',
+        );
 
         expect(result1, equals(result2));
       });
@@ -33,15 +35,17 @@ void main() {
         final result1 = await RedditNormalizer.normalizeAndHashEmail(
           '  user@example.com  ',
         );
-        final result2 =
-            await RedditNormalizer.normalizeAndHashEmail('user@example.com');
+        final result2 = await RedditNormalizer.normalizeAndHashEmail(
+          'user@example.com',
+        );
 
         expect(result1, equals(result2));
       });
 
       test('returns SHA-256 hash (64 hex characters)', () async {
-        final result =
-            await RedditNormalizer.normalizeAndHashEmail('user@example.com');
+        final result = await RedditNormalizer.normalizeAndHashEmail(
+          'user@example.com',
+        );
 
         expect(result, isNotNull);
         expect(result!.length, equals(64));
@@ -52,8 +56,9 @@ void main() {
         final result1 = await RedditNormalizer.normalizeAndHashEmail(
           '  User@Example.COM  ',
         );
-        final result2 =
-            await RedditNormalizer.normalizeAndHashEmail('user@example.com');
+        final result2 = await RedditNormalizer.normalizeAndHashEmail(
+          'user@example.com',
+        );
 
         expect(result1, equals(result2));
       });
@@ -71,10 +76,12 @@ void main() {
       });
 
       test('strips non-digit characters', () async {
-        final result1 =
-            await RedditNormalizer.normalizeAndHashPhone('+1 (415) 555-1234');
-        final result2 =
-            await RedditNormalizer.normalizeAndHashPhone('14155551234');
+        final result1 = await RedditNormalizer.normalizeAndHashPhone(
+          '+1 (415) 555-1234',
+        );
+        final result2 = await RedditNormalizer.normalizeAndHashPhone(
+          '14155551234',
+        );
 
         expect(result1, equals(result2));
       });
@@ -99,8 +106,9 @@ void main() {
       });
 
       test('returns SHA-256 hash', () async {
-        final result =
-            await RedditNormalizer.normalizeAndHashPhone('14155551234');
+        final result = await RedditNormalizer.normalizeAndHashPhone(
+          '14155551234',
+        );
 
         expect(result, isNotNull);
         expect(result!.length, equals(64));

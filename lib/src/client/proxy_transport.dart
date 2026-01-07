@@ -55,17 +55,17 @@ class ProxyTransport implements RedditTransport {
     Map<String, String>? headers,
     Duration? connectTimeout,
     Duration? receiveTimeout,
-  })  : _proxyUrl = proxyUrl.endsWith('/') ? proxyUrl : '$proxyUrl/',
-        _dio = Dio(
-          BaseOptions(
-            connectTimeout: connectTimeout ?? const Duration(seconds: 30),
-            receiveTimeout: receiveTimeout ?? const Duration(seconds: 30),
-            headers: {
-              'Content-Type': 'application/json',
-              ...?headers,
-            },
-          ),
-        ) {
+  }) : _proxyUrl = proxyUrl.endsWith('/') ? proxyUrl : '$proxyUrl/',
+       _dio = Dio(
+         BaseOptions(
+           connectTimeout: connectTimeout ?? const Duration(seconds: 30),
+           receiveTimeout: receiveTimeout ?? const Duration(seconds: 30),
+           headers: {
+             'Content-Type': 'application/json',
+             ...?headers,
+           },
+         ),
+       ) {
     _dio.interceptors.add(RetryInterceptor(dio: _dio));
 
     RedditPixelLogger.info(

@@ -47,12 +47,12 @@ class EventDispatcher {
     Duration flushInterval = const Duration(seconds: 30),
     int maxBatchSize = 500,
     bool testMode = false,
-  })  : _transport = transport,
-        _queue = queue,
-        _pixelId = pixelId,
-        _flushInterval = flushInterval,
-        _maxBatchSize = maxBatchSize,
-        _testMode = testMode;
+  }) : _transport = transport,
+       _queue = queue,
+       _pixelId = pixelId,
+       _flushInterval = flushInterval,
+       _maxBatchSize = maxBatchSize,
+       _testMode = testMode;
 
   final RedditTransport _transport;
   final HiveEventQueue _queue;

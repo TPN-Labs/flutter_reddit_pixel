@@ -28,18 +28,18 @@ class DirectTransport implements RedditTransport {
     required String token,
     Duration? connectTimeout,
     Duration? receiveTimeout,
-  })  : _token = token,
-        _dio = Dio(
-          BaseOptions(
-            baseUrl: _baseUrl,
-            connectTimeout: connectTimeout ?? const Duration(seconds: 30),
-            receiveTimeout: receiveTimeout ?? const Duration(seconds: 30),
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer $token',
-            },
-          ),
-        ) {
+  }) : _token = token,
+       _dio = Dio(
+         BaseOptions(
+           baseUrl: _baseUrl,
+           connectTimeout: connectTimeout ?? const Duration(seconds: 30),
+           receiveTimeout: receiveTimeout ?? const Duration(seconds: 30),
+           headers: {
+             'Content-Type': 'application/json',
+             'Authorization': 'Bearer $token',
+           },
+         ),
+       ) {
     _dio.interceptors.add(RetryInterceptor(dio: _dio));
     _printSecurityWarning();
   }

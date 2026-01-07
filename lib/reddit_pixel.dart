@@ -86,12 +86,12 @@ class RedditPixel {
     required EventDispatcher dispatcher,
     required RedditIdentityProvider identityProvider,
     required bool testMode,
-  })  : _pixelId = pixelId,
-        _transport = transport,
-        _queue = queue,
-        _dispatcher = dispatcher,
-        _identityProvider = identityProvider,
-        _testMode = testMode;
+  }) : _pixelId = pixelId,
+       _transport = transport,
+       _queue = queue,
+       _dispatcher = dispatcher,
+       _identityProvider = identityProvider,
+       _testMode = testMode;
 
   static RedditPixel? _instance;
 
@@ -190,7 +190,8 @@ class RedditPixel {
     await Hive.initFlutter();
 
     // Create transport
-    final effectiveTransport = transport ??
+    final effectiveTransport =
+        transport ??
         _createTransport(
           token: token,
           proxyUrl: proxyUrl,
@@ -472,7 +473,7 @@ class RedditPixel {
         :final itemCount,
         :final eventAt,
         :final eventId,
-        :final customData
+        :final customData,
       ) =>
         PurchaseEvent(
           value: value,
@@ -491,18 +492,18 @@ class RedditPixel {
           customData: customData,
         ),
       LeadEvent(:final eventAt, :final eventId, :final customData) => LeadEvent(
-          eventAt: eventAt,
-          eventId: eventId,
-          userData: enrichedUserData,
-          customData: customData,
-        ),
+        eventAt: eventAt,
+        eventId: eventId,
+        userData: enrichedUserData,
+        customData: customData,
+      ),
       AddToCartEvent(
         :final value,
         :final currency,
         :final itemCount,
         :final eventAt,
         :final eventId,
-        :final customData
+        :final customData,
       ) =>
         AddToCartEvent(
           value: value,
@@ -518,7 +519,7 @@ class RedditPixel {
         :final currency,
         :final eventAt,
         :final eventId,
-        :final customData
+        :final customData,
       ) =>
         AddToWishlistEvent(
           value: value,
@@ -532,7 +533,7 @@ class RedditPixel {
         :final searchString,
         :final eventAt,
         :final eventId,
-        :final customData
+        :final customData,
       ) =>
         SearchEvent(
           searchString: searchString,
@@ -546,7 +547,7 @@ class RedditPixel {
         :final contentName,
         :final eventAt,
         :final eventId,
-        :final customData
+        :final customData,
       ) =>
         ViewContentEvent(
           contentId: contentId,
@@ -560,7 +561,7 @@ class RedditPixel {
         :final pageUrl,
         :final eventAt,
         :final eventId,
-        :final customData
+        :final customData,
       ) =>
         PageVisitEvent(
           pageUrl: pageUrl,
@@ -573,7 +574,7 @@ class RedditPixel {
         :final customEventName,
         :final eventAt,
         :final eventId,
-        :final customData
+        :final customData,
       ) =>
         CustomEvent(
           customEventName: customEventName,

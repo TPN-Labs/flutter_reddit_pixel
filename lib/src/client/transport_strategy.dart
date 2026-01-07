@@ -61,7 +61,8 @@ final class TransportFailure extends TransportResult {
   final bool isRetryable;
 
   @override
-  String toString() => 'TransportFailure('
+  String toString() =>
+      'TransportFailure('
       'message: $message, '
       'statusCode: $statusCode, '
       'isRetryable: $isRetryable)';

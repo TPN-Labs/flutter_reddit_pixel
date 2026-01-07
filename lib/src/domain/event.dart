@@ -35,8 +35,8 @@ sealed class RedditEvent {
     String? eventId,
     this.userData,
     this.customData,
-  })  : eventAt = eventAt ?? DateTime.now(),
-        eventId = eventId ?? _uuid.v4();
+  }) : eventAt = eventAt ?? DateTime.now(),
+       eventId = eventId ?? _uuid.v4();
 
   /// Creates a [RedditEvent] from a JSON map.
   ///
@@ -48,65 +48,66 @@ sealed class RedditEvent {
     final eventId = metadata?['event_id'] as String?;
     final customData = metadata?['custom_data'] as Map<String, dynamic>?;
     final userDataJson = json['user_data'] as Map<String, dynamic>?;
-    final userData =
-        userDataJson != null ? RedditUserData.fromJson(userDataJson) : null;
+    final userData = userDataJson != null
+        ? RedditUserData.fromJson(userDataJson)
+        : null;
 
     return switch (eventName) {
       'Purchase' => PurchaseEvent._fromJson(
-          eventAt: eventAt,
-          eventId: eventId,
-          userData: userData,
-          customData: customData,
-        ),
+        eventAt: eventAt,
+        eventId: eventId,
+        userData: userData,
+        customData: customData,
+      ),
       'SignUp' => SignUpEvent(
-          eventAt: eventAt,
-          eventId: eventId,
-          userData: userData,
-          customData: customData,
-        ),
+        eventAt: eventAt,
+        eventId: eventId,
+        userData: userData,
+        customData: customData,
+      ),
       'Lead' => LeadEvent(
-          eventAt: eventAt,
-          eventId: eventId,
-          userData: userData,
-          customData: customData,
-        ),
+        eventAt: eventAt,
+        eventId: eventId,
+        userData: userData,
+        customData: customData,
+      ),
       'AddToCart' => AddToCartEvent._fromJson(
-          eventAt: eventAt,
-          eventId: eventId,
-          userData: userData,
-          customData: customData,
-        ),
+        eventAt: eventAt,
+        eventId: eventId,
+        userData: userData,
+        customData: customData,
+      ),
       'AddToWishlist' => AddToWishlistEvent._fromJson(
-          eventAt: eventAt,
-          eventId: eventId,
-          userData: userData,
-          customData: customData,
-        ),
+        eventAt: eventAt,
+        eventId: eventId,
+        userData: userData,
+        customData: customData,
+      ),
       'Search' => SearchEvent._fromJson(
-          eventAt: eventAt,
-          eventId: eventId,
-          userData: userData,
-          customData: customData,
-        ),
+        eventAt: eventAt,
+        eventId: eventId,
+        userData: userData,
+        customData: customData,
+      ),
       'ViewContent' => ViewContentEvent._fromJson(
-          eventAt: eventAt,
-          eventId: eventId,
-          userData: userData,
-          customData: customData,
-        ),
+        eventAt: eventAt,
+        eventId: eventId,
+        userData: userData,
+        customData: customData,
+      ),
       'PageVisit' => PageVisitEvent._fromJson(
-          eventAt: eventAt,
-          eventId: eventId,
-          userData: userData,
-          customData: customData,
-        ),
+        eventAt: eventAt,
+        eventId: eventId,
+        userData: userData,
+        customData: customData,
+      ),
       _ => CustomEvent(
-          customEventName: eventName,
-          eventAt: eventAt,
-          eventId: eventId,
-          userData: userData,
-          customData: customData,
-        ),
+        customEventName: eventName,
+        eventAt: eventAt,
+        eventId: eventId,
+        userData: userData,
+        customData: customData,
+      ),
     };
   }
 
