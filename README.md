@@ -286,5 +286,5 @@ This project is licensed under the BSD-3-Clause License - see the [LICENSE](LICE
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/TPN-Labs">TPN Labs</a>
+  Made with ❤️ by <a href="https://tpn-labs.com">TPN Labs</a>
 </p>
