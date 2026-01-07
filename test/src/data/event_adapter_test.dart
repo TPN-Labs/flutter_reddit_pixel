@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:reddit_pixel/src/data/event_adapter.dart';
 import 'package:reddit_pixel/src/domain/event.dart';
@@ -52,11 +50,13 @@ void main() {
         final after = DateTime.now();
 
         expect(
-          stored.createdAt.isAfter(before.subtract(Duration(seconds: 1))),
+          stored.createdAt.isAfter(
+            before.subtract(const Duration(seconds: 1)),
+          ),
           isTrue,
         );
         expect(
-          stored.createdAt.isBefore(after.add(Duration(seconds: 1))),
+          stored.createdAt.isBefore(after.add(const Duration(seconds: 1))),
           isTrue,
         );
       });
@@ -81,7 +81,7 @@ void main() {
       });
 
       test('handles dynamic map keys', () {
-        final Map<dynamic, dynamic> map = {
+        final map = <dynamic, dynamic>{
           'eventId': 'dynamic-id',
           'eventJson': '{}',
           'createdAt': '2024-01-01T00:00:00.000Z',
@@ -130,7 +130,7 @@ void main() {
 
       test('deserializes back to AddToCartEvent', () {
         final original = AddToCartEvent(
-          value: 25.0,
+          value: 25,
           itemCount: 3,
         );
 
@@ -144,7 +144,7 @@ void main() {
       });
 
       test('deserializes back to AddToWishlistEvent', () {
-        final original = AddToWishlistEvent(value: 15.0);
+        final original = AddToWishlistEvent(value: 15);
         final stored = StoredEvent.fromEvent(original);
         final restored = stored.toEvent();
 
@@ -224,7 +224,7 @@ void main() {
           createdAt: DateTime.now(),
         );
 
-        expect(() => stored.toEvent(), throwsFormatException);
+        expect(stored.toEvent, throwsFormatException);
       });
     });
 

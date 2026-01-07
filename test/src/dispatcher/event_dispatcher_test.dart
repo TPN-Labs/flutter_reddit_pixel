@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mocktail/mocktail.dart';
@@ -236,7 +235,7 @@ void main() {
           flushInterval: const Duration(hours: 1),
         );
 
-        final event = PurchaseEvent(value: 50.0);
+        final event = PurchaseEvent(value: 50);
         final result = await dispatcher.sendNow(event);
 
         // Result depends on connectivity, but shouldn't throw
@@ -254,7 +253,7 @@ void main() {
           pixelId: 'test-pixel',
         );
 
-        final event = PurchaseEvent(value: 50.0);
+        final event = PurchaseEvent(value: 50);
         final result = await dispatcher.sendNow(event);
 
         // This depends on connectivity check - may be true or false
@@ -467,7 +466,6 @@ void main() {
           transport: mockTransport,
           queue: queue,
           pixelId: 'test-pixel',
-          testMode: false,
         );
 
         await queue.enqueue(PurchaseEvent());
@@ -500,7 +498,7 @@ void main() {
 
         // Enqueue event with user data
         final event = PurchaseEvent(
-          value: 100.0,
+          value: 100,
           userData: const RedditUserData(
             email: 'USER@EXAMPLE.COM',
             externalId: 'ext-123',
@@ -512,22 +510,19 @@ void main() {
 
         // If payload was captured, verify events were included
         if (capturedPayload != null) {
-          expect(capturedPayload!['events'], isA<List>());
+          expect(capturedPayload!['events'], isA<List<dynamic>>());
         }
       });
     });
 
     group('batch processing', () {
       test('respects maxBatchSize', () async {
-        var callCount = 0;
-
         when(
           () => mockTransport.send(any(), any()),
         ).thenAnswer((invocation) async {
-          callCount++;
           final payload =
               invocation.positionalArguments[1] as Map<String, dynamic>;
-          final events = payload['events'] as List;
+          final events = payload['events'] as List<dynamic>;
           // Verify batch size is respected
           expect(events.length, lessThanOrEqualTo(3));
           return const TransportSuccess();

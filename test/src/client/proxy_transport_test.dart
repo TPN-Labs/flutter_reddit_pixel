@@ -104,7 +104,7 @@ void main() {
           proxyUrl: 'https://api.example.com/reddit',
         );
 
-        expect(() => transport.dispose(), returnsNormally);
+        expect(transport.dispose, returnsNormally);
       });
 
       test('can be called multiple times without error', () {
@@ -112,8 +112,8 @@ void main() {
           proxyUrl: 'https://api.example.com/reddit',
         );
 
-        expect(() => transport.dispose(), returnsNormally);
-        expect(() => transport.dispose(), returnsNormally);
+        expect(transport.dispose, returnsNormally);
+        expect(transport.dispose, returnsNormally);
       });
     });
 
@@ -126,7 +126,7 @@ void main() {
 
         final result = await transport.send(
           'pixel123',
-          {'events': []},
+          {'events': <Map<String, dynamic>>[]},
         );
 
         expect(result, isA<TransportFailure>());
@@ -175,8 +175,14 @@ void main() {
         );
 
         // Different pixel IDs should all work
-        final result1 = await transport.send('pixel-123', {'events': []});
-        final result2 = await transport.send('another_pixel', {'events': []});
+        final result1 = await transport.send(
+          'pixel-123',
+          {'events': <Map<String, dynamic>>[]},
+        );
+        final result2 = await transport.send(
+          'another_pixel',
+          {'events': <Map<String, dynamic>>[]},
+        );
 
         expect(result1, isA<TransportFailure>());
         expect(result2, isA<TransportFailure>());
@@ -192,7 +198,10 @@ void main() {
           connectTimeout: const Duration(milliseconds: 1),
         );
 
-        final result = await transport.send('pixel123', {'events': []});
+        final result = await transport.send(
+          'pixel123',
+          {'events': <Map<String, dynamic>>[]},
+        );
 
         expect(result, isA<TransportFailure>());
         final failure = result as TransportFailure;
@@ -209,11 +218,15 @@ void main() {
             connectTimeout: const Duration(milliseconds: 1),
           );
 
-          final result = await transport.send('pixel123', {'events': []});
+          final result = await transport.send(
+            'pixel123',
+            {'events': <Map<String, dynamic>>[]},
+          );
 
           expect(result, isA<TransportFailure>());
           final failure = result as TransportFailure;
-          // Connection errors typically don't have status codes, so not retryable
+          // Connection errors typically don't have status codes, so not
+          // retryable
           expect(failure.isRetryable, isFalse);
 
           transport.dispose();

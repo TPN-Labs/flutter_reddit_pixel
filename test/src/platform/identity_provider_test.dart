@@ -93,7 +93,7 @@ void main() {
       provider.enableTracking();
       expect(await provider.isTrackingEnabled(), isTrue);
 
-      provider.setAdvertisingId('custom-id-123');
+      provider.updateAdvertisingId('custom-id-123');
       expect(await provider.getAdvertisingId(), equals('custom-id-123'));
     });
   });
@@ -115,7 +115,8 @@ class _StatefulIdentityProvider implements RedditIdentityProvider {
 
   void enableTracking() => _trackingEnabled = true;
   void disableTracking() => _trackingEnabled = false;
-  void setAdvertisingId(String? id) => _advertisingId = id;
+  // ignore: use_setters_to_change_properties, Test helper method.
+  void updateAdvertisingId(String? id) => _advertisingId = id;
 
   @override
   Future<String?> getAdvertisingId() async => _advertisingId;

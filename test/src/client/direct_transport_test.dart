@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:reddit_pixel/src/client/direct_transport.dart';
 import 'package:reddit_pixel/src/client/transport_strategy.dart';
@@ -53,8 +52,8 @@ void main() {
       test('can be called multiple times without error', () {
         final transport = DirectTransport(token: 'test-token');
 
-        expect(() => transport.dispose(), returnsNormally);
-        expect(() => transport.dispose(), returnsNormally);
+        expect(transport.dispose, returnsNormally);
+        expect(transport.dispose, returnsNormally);
       });
     });
 
@@ -68,7 +67,7 @@ void main() {
 
         final result = await transport.send(
           'pixel123',
-          {'events': []},
+          {'events': <Map<String, dynamic>>[]},
         );
 
         expect(result, isA<TransportFailure>());
@@ -118,7 +117,10 @@ void main() {
         connectTimeout: const Duration(milliseconds: 1),
       );
 
-      final result = await transport.send('pixel123', {'events': []});
+      final result = await transport.send(
+        'pixel123',
+        {'events': <Map<String, dynamic>>[]},
+      );
 
       expect(result, isA<TransportFailure>());
       final failure = result as TransportFailure;

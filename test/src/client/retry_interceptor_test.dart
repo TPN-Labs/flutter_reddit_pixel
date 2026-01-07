@@ -17,11 +17,9 @@ void main() {
 
   group('RetryInterceptor', () {
     late MockDio mockDio;
-    late RetryInterceptor interceptor;
 
     setUp(() {
       mockDio = MockDio();
-      interceptor = RetryInterceptor(dio: mockDio);
     });
 
     group('constructor', () {
@@ -60,7 +58,7 @@ void main() {
     group('retry behavior on server errors (5xx)', () {
       test('retries on 500 Internal Server Error', () async {
         final requestOptions = RequestOptions(path: '/test');
-        final response = Response(
+        final response = Response<dynamic>(
           requestOptions: requestOptions,
           statusCode: 500,
         );
@@ -77,7 +75,7 @@ void main() {
             options: any(named: 'options'),
           ),
         ).thenAnswer(
-          (_) async => Response(
+          (_) async => Response<dynamic>(
             requestOptions: requestOptions,
             statusCode: 200,
           ),
@@ -103,7 +101,7 @@ void main() {
 
       test('retries on 502 Bad Gateway', () async {
         final requestOptions = RequestOptions(path: '/test');
-        final response = Response(
+        final response = Response<dynamic>(
           requestOptions: requestOptions,
           statusCode: 502,
         );
@@ -120,7 +118,7 @@ void main() {
             options: any(named: 'options'),
           ),
         ).thenAnswer(
-          (_) async => Response(
+          (_) async => Response<dynamic>(
             requestOptions: requestOptions,
             statusCode: 200,
           ),
@@ -146,7 +144,7 @@ void main() {
 
       test('retries on 503 Service Unavailable', () async {
         final requestOptions = RequestOptions(path: '/test');
-        final response = Response(
+        final response = Response<dynamic>(
           requestOptions: requestOptions,
           statusCode: 503,
         );
@@ -163,7 +161,7 @@ void main() {
             options: any(named: 'options'),
           ),
         ).thenAnswer(
-          (_) async => Response(
+          (_) async => Response<dynamic>(
             requestOptions: requestOptions,
             statusCode: 200,
           ),
@@ -189,7 +187,7 @@ void main() {
 
       test('retries on 599 status code', () async {
         final requestOptions = RequestOptions(path: '/test');
-        final response = Response(
+        final response = Response<dynamic>(
           requestOptions: requestOptions,
           statusCode: 599,
         );
@@ -206,7 +204,7 @@ void main() {
             options: any(named: 'options'),
           ),
         ).thenAnswer(
-          (_) async => Response(
+          (_) async => Response<dynamic>(
             requestOptions: requestOptions,
             statusCode: 200,
           ),
@@ -237,7 +235,7 @@ void main() {
           path: '/test',
           extra: {},
         );
-        final response = Response(
+        final response = Response<dynamic>(
           requestOptions: requestOptions,
           statusCode: 500,
         );
@@ -255,7 +253,7 @@ void main() {
             options: any(named: 'options'),
           ),
         ).thenAnswer(
-          (_) async => Response(
+          (_) async => Response<dynamic>(
             requestOptions: requestOptions,
             statusCode: 200,
           ),
@@ -291,7 +289,7 @@ void main() {
           path: '/test',
           method: 'POST',
         );
-        final response = Response(
+        final response = Response<dynamic>(
           requestOptions: requestOptions,
           statusCode: 500,
         );
@@ -308,7 +306,7 @@ void main() {
             options: any(named: 'options'),
           ),
         ).thenAnswer(
-          (_) async => Response(
+          (_) async => Response<dynamic>(
             requestOptions: requestOptions,
             statusCode: 200,
           ),
@@ -340,7 +338,7 @@ void main() {
           path: '/test',
           headers: {'Authorization': 'Bearer token123'},
         );
-        final response = Response(
+        final response = Response<dynamic>(
           requestOptions: requestOptions,
           statusCode: 500,
         );
@@ -357,7 +355,7 @@ void main() {
             options: any(named: 'options'),
           ),
         ).thenAnswer(
-          (_) async => Response(
+          (_) async => Response<dynamic>(
             requestOptions: requestOptions,
             statusCode: 200,
           ),
@@ -390,7 +388,7 @@ void main() {
           path: '/test',
           data: requestData,
         );
-        final response = Response(
+        final response = Response<dynamic>(
           requestOptions: requestOptions,
           statusCode: 500,
         );
@@ -407,7 +405,7 @@ void main() {
             options: any(named: 'options'),
           ),
         ).thenAnswer(
-          (_) async => Response(
+          (_) async => Response<dynamic>(
             requestOptions: requestOptions,
             statusCode: 200,
           ),
@@ -437,7 +435,7 @@ void main() {
           path: '/test',
           queryParameters: queryParams,
         );
-        final response = Response(
+        final response = Response<dynamic>(
           requestOptions: requestOptions,
           statusCode: 500,
         );
@@ -454,7 +452,7 @@ void main() {
             options: any(named: 'options'),
           ),
         ).thenAnswer(
-          (_) async => Response(
+          (_) async => Response<dynamic>(
             requestOptions: requestOptions,
             statusCode: 200,
           ),
@@ -480,7 +478,7 @@ void main() {
 
       test('preserves original path', () async {
         final requestOptions = RequestOptions(path: '/api/v3/events');
-        final response = Response(
+        final response = Response<dynamic>(
           requestOptions: requestOptions,
           statusCode: 500,
         );
@@ -497,7 +495,7 @@ void main() {
             options: any(named: 'options'),
           ),
         ).thenAnswer(
-          (_) async => Response(
+          (_) async => Response<dynamic>(
             requestOptions: requestOptions,
             statusCode: 200,
           ),
@@ -525,7 +523,7 @@ void main() {
     group('exponential backoff calculation', () {
       test('first retry has 1x base delay', () async {
         final requestOptions = RequestOptions(path: '/test');
-        final response = Response(
+        final response = Response<dynamic>(
           requestOptions: requestOptions,
           statusCode: 500,
         );
@@ -542,7 +540,7 @@ void main() {
             options: any(named: 'options'),
           ),
         ).thenAnswer(
-          (_) async => Response(
+          (_) async => Response<dynamic>(
             requestOptions: requestOptions,
             statusCode: 200,
           ),
