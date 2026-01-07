@@ -22,7 +22,7 @@ void main() {
       });
 
       test('toString includes status code', () {
-        const result = TransportSuccess(statusCode: 200);
+        const result = TransportSuccess();
 
         expect(result.toString(), contains('200'));
       });
@@ -71,7 +71,7 @@ void main() {
     group('pattern matching', () {
       test('works with switch expression', () {
         const results = <TransportResult>[
-          TransportSuccess(statusCode: 200),
+          TransportSuccess(),
           TransportFailure(message: 'Failed', isRetryable: true),
           TransportFailure(message: 'Client error', statusCode: 400),
         ];
@@ -90,7 +90,7 @@ void main() {
       });
 
       test('destructures success', () {
-        const result = TransportSuccess(
+        const TransportResult result = TransportSuccess(
           statusCode: 201,
           responseBody: 'Created',
         );
@@ -106,7 +106,7 @@ void main() {
       });
 
       test('destructures failure', () {
-        const result = TransportFailure(
+        const TransportResult result = TransportFailure(
           message: 'Timeout',
           statusCode: 504,
           isRetryable: true,

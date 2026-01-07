@@ -12,11 +12,11 @@ import 'package:reddit_pixel/src/domain/event.dart';
 /// The dispatcher handles event delivery with the following strategy:
 ///
 /// **Immediate dispatch:**
-/// When [sendNow] is called, the event is immediately sent if online.
+/// When `sendNow` is called, the event is immediately sent if online.
 /// If offline or if sending fails, the event is queued for later.
 ///
 /// **Periodic background flush:**
-/// A timer runs every [flushInterval] (default: 30 seconds) to send
+/// A timer runs every `flushInterval` (default: 30 seconds) to send
 /// any queued events. This handles:
 /// - Events that failed immediate delivery
 /// - Events queued while offline
@@ -229,7 +229,7 @@ class EventDispatcher {
       return result.any(
         (r) => r != ConnectivityResult.none,
       );
-    } catch (e) {
+    } on Exception {
       // If we can't check connectivity, assume online
       RedditPixelLogger.debug('Connectivity check failed, assuming online');
       return true;

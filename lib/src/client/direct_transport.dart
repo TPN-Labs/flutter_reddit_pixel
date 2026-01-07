@@ -9,7 +9,7 @@ import 'package:reddit_pixel/src/core/logger.dart';
 /// access token in the mobile application. This exposes your token to potential
 /// extraction from the app binary.
 ///
-/// **Recommendation:** Use [ProxyTransport] for production applications.
+/// **Recommendation:** Use `ProxyTransport` for production applications.
 /// [DirectTransport] is suitable for:
 /// - Development and testing
 /// - Proof-of-concept implementations
@@ -66,9 +66,9 @@ class DirectTransport implements RedditTransport {
   ) async {
     final path = '/api/v3/pixels/$pixelId/conversion_events';
 
+    final events = payload['events'] as List<dynamic>?;
     RedditPixelLogger.debug(
-      'DirectTransport: Sending ${payload['events']?.length ?? 0} events '
-      'to $path',
+      'DirectTransport: Sending ${events?.length ?? 0} events to $path',
     );
 
     try {

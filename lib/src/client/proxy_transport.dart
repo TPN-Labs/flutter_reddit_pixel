@@ -83,9 +83,9 @@ class ProxyTransport implements RedditTransport {
   ) async {
     final url = '$_proxyUrl$pixelId';
 
+    final events = payload['events'] as List<dynamic>?;
     RedditPixelLogger.debug(
-      'ProxyTransport: Sending ${payload['events']?.length ?? 0} events '
-      'to $url',
+      'ProxyTransport: Sending ${events?.length ?? 0} events to $url',
     );
 
     try {

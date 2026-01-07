@@ -38,48 +38,9 @@ sealed class RedditEvent {
   })  : eventAt = eventAt ?? DateTime.now(),
         eventId = eventId ?? _uuid.v4();
 
-  /// The name of this event type for the Reddit API.
-  String get eventName;
-
-  /// When the event occurred.
-  ///
-  /// This timestamp is captured at event creation, not at send time,
-  /// to ensure accurate attribution even when events are queued.
-  final DateTime eventAt;
-
-  /// Unique identifier for this event.
-  ///
-  /// Used for deduplication by Reddit's API.
-  final String eventId;
-
-  /// User data for attribution.
-  ///
-  /// Include as much user data as available to improve attribution accuracy.
-  /// PII fields will be normalized and hashed before sending.
-  final RedditUserData? userData;
-
-  /// Custom data to include with the event.
-  ///
-  /// This can include any additional context about the event.
-  final Map<String, dynamic>? customData;
-
-  /// Converts this event to a JSON map for the Reddit API.
-  Map<String, dynamic> toJson() {
-    return {
-      'event_name': eventName,
-      'event_at': eventAt.toUtc().toIso8601String(),
-      'event_metadata': {
-        'event_id': eventId,
-        'action_source': 'APP',
-        if (customData != null) 'custom_data': customData,
-      },
-      if (userData != null) 'user_data': userData!.toJson(),
-    };
-  }
-
   /// Creates a [RedditEvent] from a JSON map.
   ///
-  /// This factory handles all event type variants based on [event_name].
+  /// This factory handles all event type variants based on `event_name`.
   factory RedditEvent.fromJson(Map<String, dynamic> json) {
     final eventName = json['event_name'] as String;
     final eventAt = DateTime.parse(json['event_at'] as String);
@@ -146,6 +107,45 @@ sealed class RedditEvent {
           userData: userData,
           customData: customData,
         ),
+    };
+  }
+
+  /// The name of this event type for the Reddit API.
+  String get eventName;
+
+  /// When the event occurred.
+  ///
+  /// This timestamp is captured at event creation, not at send time,
+  /// to ensure accurate attribution even when events are queued.
+  final DateTime eventAt;
+
+  /// Unique identifier for this event.
+  ///
+  /// Used for deduplication by Reddit's API.
+  final String eventId;
+
+  /// User data for attribution.
+  ///
+  /// Include as much user data as available to improve attribution accuracy.
+  /// PII fields will be normalized and hashed before sending.
+  final RedditUserData? userData;
+
+  /// Custom data to include with the event.
+  ///
+  /// This can include any additional context about the event.
+  final Map<String, dynamic>? customData;
+
+  /// Converts this event to a JSON map for the Reddit API.
+  Map<String, dynamic> toJson() {
+    return {
+      'event_name': eventName,
+      'event_at': eventAt.toUtc().toIso8601String(),
+      'event_metadata': {
+        'event_id': eventId,
+        'action_source': 'APP',
+        if (customData != null) 'custom_data': customData,
+      },
+      if (userData != null) 'user_data': userData!.toJson(),
     };
   }
 }

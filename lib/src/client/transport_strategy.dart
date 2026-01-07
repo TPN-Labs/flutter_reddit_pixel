@@ -72,8 +72,8 @@ final class TransportFailure extends TransportResult {
 /// This interface defines the contract for sending events to Reddit's
 /// Conversions API. Two implementations are provided:
 ///
-/// - [DirectTransport]: Sends directly to Reddit's API (requires token in app)
-/// - [ProxyTransport]: Sends to a proxy server (recommended for production)
+/// - `DirectTransport`: Sends directly to Reddit's API (requires token in app)
+/// - `ProxyTransport`: Sends to a proxy server (recommended for production)
 ///
 /// The Strategy Pattern allows switching between transport modes without
 /// changing the rest of the library's code.

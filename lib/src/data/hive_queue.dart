@@ -107,7 +107,7 @@ class HiveEventQueue {
     for (final stored in values) {
       try {
         events.add(stored.toEvent());
-      } catch (e) {
+      } on FormatException catch (e) {
         RedditPixelLogger.error(
           'Failed to deserialize event ${stored.eventId}',
           error: e,

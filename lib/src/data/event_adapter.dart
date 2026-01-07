@@ -56,15 +56,6 @@ class StoredEvent {
     required this.createdAt,
   });
 
-  /// The unique event ID (matches [RedditEvent.eventId]).
-  final String eventId;
-
-  /// The serialized event JSON.
-  final String eventJson;
-
-  /// When this event was stored in the queue.
-  final DateTime createdAt;
-
   /// Creates a [StoredEvent] from a [RedditEvent].
   factory StoredEvent.fromEvent(RedditEvent event) {
     return StoredEvent(
@@ -73,6 +64,24 @@ class StoredEvent {
       createdAt: DateTime.now(),
     );
   }
+
+  /// Creates from a Hive storage map.
+  factory StoredEvent.fromMap(Map<dynamic, dynamic> map) {
+    return StoredEvent(
+      eventId: map['eventId'] as String,
+      eventJson: map['eventJson'] as String,
+      createdAt: DateTime.parse(map['createdAt'] as String),
+    );
+  }
+
+  /// The unique event ID (matches [RedditEvent.eventId]).
+  final String eventId;
+
+  /// The serialized event JSON.
+  final String eventJson;
+
+  /// When this event was stored in the queue.
+  final DateTime createdAt;
 
   /// Deserializes the stored event back to a [RedditEvent].
   RedditEvent toEvent() {
@@ -87,15 +96,6 @@ class StoredEvent {
       'eventJson': eventJson,
       'createdAt': createdAt.toIso8601String(),
     };
-  }
-
-  /// Creates from a Hive storage map.
-  factory StoredEvent.fromMap(Map<dynamic, dynamic> map) {
-    return StoredEvent(
-      eventId: map['eventId'] as String,
-      eventJson: map['eventJson'] as String,
-      createdAt: DateTime.parse(map['createdAt'] as String),
-    );
   }
 }
 

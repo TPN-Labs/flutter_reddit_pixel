@@ -175,7 +175,8 @@ class RedditPixel {
   }) async {
     if (_instance != null) {
       RedditPixelLogger.warning(
-        'RedditPixel already initialized. Call dispose() first to reinitialize.',
+        'RedditPixel already initialized. '
+        'Call dispose() first to reinitialize.',
       );
       return;
     }

@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 /// Container for user data used in Reddit conversion events.
 ///
 /// This class holds personally identifiable information (PII) that will be
@@ -16,6 +18,7 @@
 ///   externalId: 'user-123',
 /// );
 /// ```
+@immutable
 class RedditUserData {
   /// Creates a new [RedditUserData] instance.
   const RedditUserData({
@@ -29,6 +32,21 @@ class RedditUserData {
     this.screenDimensions,
     this.clickId,
   });
+
+  /// Creates a [RedditUserData] from a JSON map.
+  factory RedditUserData.fromJson(Map<String, dynamic> json) {
+    return RedditUserData(
+      email: json['email'] as String?,
+      externalId: json['external_id'] as String?,
+      uuid: json['uuid'] as String?,
+      idfa: json['idfa'] as String?,
+      aaid: json['aaid'] as String?,
+      ipAddress: json['ip_address'] as String?,
+      userAgent: json['user_agent'] as String?,
+      screenDimensions: json['screen_dimensions'] as String?,
+      clickId: json['click_id'] as String?,
+    );
+  }
 
   /// User's email address.
   ///
@@ -100,7 +118,7 @@ class RedditUserData {
 
   /// Converts this user data to a JSON map.
   ///
-  /// **Note:** This returns raw values. Use [RedditNormalizer] to get
+  /// **Note:** This returns raw values. Use `RedditNormalizer` to get
   /// normalized and hashed values for the API.
   Map<String, dynamic> toJson() {
     return {
@@ -114,21 +132,6 @@ class RedditUserData {
       if (screenDimensions != null) 'screen_dimensions': screenDimensions,
       if (clickId != null) 'click_id': clickId,
     };
-  }
-
-  /// Creates a [RedditUserData] from a JSON map.
-  factory RedditUserData.fromJson(Map<String, dynamic> json) {
-    return RedditUserData(
-      email: json['email'] as String?,
-      externalId: json['external_id'] as String?,
-      uuid: json['uuid'] as String?,
-      idfa: json['idfa'] as String?,
-      aaid: json['aaid'] as String?,
-      ipAddress: json['ip_address'] as String?,
-      userAgent: json['user_agent'] as String?,
-      screenDimensions: json['screen_dimensions'] as String?,
-      clickId: json['click_id'] as String?,
-    );
   }
 
   @override

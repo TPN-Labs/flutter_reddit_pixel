@@ -88,8 +88,9 @@ void main() {
           '415 555 1234',
         ];
 
-        final results =
-            await Future.wait(formats.map(RedditNormalizer.normalizeAndHashPhone));
+        final results = await Future.wait(
+          formats.map(RedditNormalizer.normalizeAndHashPhone),
+        );
 
         // First format is E.164 with country code
         expect(results[0], equals(results[1]));
@@ -172,7 +173,7 @@ void main() {
 
     group('normalizeUserData', () {
       test('normalizes all PII fields', () async {
-        final userData = RedditUserData(
+        const userData = RedditUserData(
           email: 'USER@EXAMPLE.COM',
           externalId: 'user-123',
           uuid: 'uuid-456',

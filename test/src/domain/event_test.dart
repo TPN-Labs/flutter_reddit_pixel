@@ -10,8 +10,8 @@ void main() {
           value: 99.99,
           currency: 'USD',
           itemCount: 2,
-          userData: RedditUserData(email: 'test@example.com'),
-          customData: {'promo': 'summer2024'},
+          userData: const RedditUserData(email: 'test@example.com'),
+          customData: const {'promo': 'summer2024'},
         );
 
         expect(event.eventName, equals('Purchase'));
@@ -64,18 +64,20 @@ void main() {
 
         expect(json['event_name'], equals('Purchase'));
         expect(json['event_at'], equals('2024-01-15T10:30:00.000Z'));
-        expect(json['event_metadata']['event_id'], equals('evt-123'));
-        expect(json['event_metadata']['action_source'], equals('APP'));
-        expect(json['event_metadata']['custom_data']['value'], equals(49.99));
-        expect(json['event_metadata']['custom_data']['currency'], equals('EUR'));
-        expect(json['event_metadata']['custom_data']['item_count'], equals(1));
+        final metadata = json['event_metadata'] as Map<String, dynamic>;
+        expect(metadata['event_id'], equals('evt-123'));
+        expect(metadata['action_source'], equals('APP'));
+        final customData = metadata['custom_data'] as Map<String, dynamic>;
+        expect(customData['value'], equals(49.99));
+        expect(customData['currency'], equals('EUR'));
+        expect(customData['item_count'], equals(1));
       });
     });
 
     group('SignUpEvent', () {
       test('creates correctly', () {
         final event = SignUpEvent(
-          userData: RedditUserData(email: 'newuser@example.com'),
+          userData: const RedditUserData(email: 'newuser@example.com'),
         );
 
         expect(event.eventName, equals('SignUp'));
@@ -88,7 +90,8 @@ void main() {
         final json = event.toJson();
 
         expect(json['event_name'], equals('SignUp'));
-        expect(json['event_metadata']['event_id'], equals('evt-456'));
+        final metadata = json['event_metadata'] as Map<String, dynamic>;
+        expect(metadata['event_id'], equals('evt-456'));
       });
     });
 
@@ -119,15 +122,17 @@ void main() {
 
       test('toJson includes custom data', () {
         final event = AddToCartEvent(
-          value: 15.00,
+          value: 15,
           currency: 'GBP',
           eventId: 'evt-cart',
         );
 
         final json = event.toJson();
+        final metadata = json['event_metadata'] as Map<String, dynamic>;
+        final customData = metadata['custom_data'] as Map<String, dynamic>;
 
-        expect(json['event_metadata']['custom_data']['value'], equals(15.00));
-        expect(json['event_metadata']['custom_data']['currency'], equals('GBP'));
+        expect(customData['value'], equals(15));
+        expect(customData['currency'], equals('GBP'));
       });
     });
 
@@ -161,11 +166,10 @@ void main() {
         );
 
         final json = event.toJson();
+        final metadata = json['event_metadata'] as Map<String, dynamic>;
+        final customData = metadata['custom_data'] as Map<String, dynamic>;
 
-        expect(
-          json['event_metadata']['custom_data']['search_string'],
-          equals('test query'),
-        );
+        expect(customData['search_string'], equals('test query'));
       });
     });
 
@@ -292,8 +296,8 @@ void main() {
           currency: 'USD',
           itemCount: 3,
           eventId: 'roundtrip-test',
-          eventAt: DateTime.utc(2024, 6, 15, 12, 0),
-          userData: RedditUserData(
+          eventAt: DateTime.utc(2024, 6, 15, 12),
+          userData: const RedditUserData(
             email: 'roundtrip@example.com',
             externalId: 'rt-123',
           ),

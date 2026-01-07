@@ -24,13 +24,14 @@ class RedditPixelLogger {
 
   static bool _debugMode = false;
 
+  /// Whether debug mode is enabled.
+  static bool get isDebugMode => _debugMode;
+
   /// Enable or disable debug logging.
+  // ignore: use_setters_to_change_properties
   static void setDebugMode({required bool enabled}) {
     _debugMode = enabled;
   }
-
-  /// Whether debug mode is enabled.
-  static bool get isDebugMode => _debugMode;
 
   /// Log a debug message.
   ///

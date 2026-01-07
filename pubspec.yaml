@@ -13,14 +13,15 @@ environment:
   flutter: ">=3.0.0"
 
 dependencies:
+  connectivity_plus: ^6.0.3
+  crypto: ^3.0.3
+  dio: ^5.4.0
   flutter:
     sdk: flutter
-  dio: ^5.4.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  meta: ^1.15.0
   uuid: ^4.3.3
-  crypto: ^3.0.3
-  connectivity_plus: ^6.0.3
 
 dev_dependencies:
   flutter_test:

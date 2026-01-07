@@ -28,7 +28,8 @@
 ///
 ///   @override
 ///   Future<bool> isTrackingEnabled() async {
-///     final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+///     final status =
+///         await AppTrackingTransparency.trackingAuthorizationStatus;
 ///     return status == TrackingStatus.authorized;
 ///   }
 /// }

@@ -4,7 +4,7 @@ import 'package:reddit_pixel/src/domain/user_data.dart';
 void main() {
   group('RedditUserData', () {
     test('creates with all fields', () {
-      final userData = RedditUserData(
+      const userData = RedditUserData(
         email: 'test@example.com',
         externalId: 'ext-123',
         uuid: 'uuid-456',
@@ -43,7 +43,7 @@ void main() {
 
     group('copyWith', () {
       test('copies all fields', () {
-        final original = RedditUserData(
+        const original = RedditUserData(
           email: 'original@example.com',
           externalId: 'orig-123',
         );
@@ -57,7 +57,7 @@ void main() {
       });
 
       test('preserves null fields when not specified', () {
-        final original = RedditUserData(email: 'test@example.com');
+        const original = RedditUserData(email: 'test@example.com');
 
         final copied = original.copyWith();
 
@@ -68,7 +68,7 @@ void main() {
 
     group('toJson', () {
       test('includes all non-null fields', () {
-        final userData = RedditUserData(
+        const userData = RedditUserData(
           email: 'test@example.com',
           externalId: 'ext-123',
           ipAddress: '192.168.1.1',
@@ -82,7 +82,7 @@ void main() {
       });
 
       test('excludes null fields', () {
-        final userData = RedditUserData(
+        const userData = RedditUserData(
           email: 'test@example.com',
         );
 
@@ -94,7 +94,7 @@ void main() {
       });
 
       test('uses snake_case keys', () {
-        final userData = RedditUserData(
+        const userData = RedditUserData(
           externalId: 'ext-123',
           ipAddress: '192.168.1.1',
           userAgent: 'TestAgent',
@@ -153,11 +153,11 @@ void main() {
 
     group('equality', () {
       test('equal instances are equal', () {
-        final a = RedditUserData(
+        const a = RedditUserData(
           email: 'test@example.com',
           externalId: 'ext-123',
         );
-        final b = RedditUserData(
+        const b = RedditUserData(
           email: 'test@example.com',
           externalId: 'ext-123',
         );
@@ -167,10 +167,10 @@ void main() {
       });
 
       test('different instances are not equal', () {
-        final a = RedditUserData(
+        const a = RedditUserData(
           email: 'test@example.com',
         );
-        final b = RedditUserData(
+        const b = RedditUserData(
           email: 'other@example.com',
         );
 
@@ -180,7 +180,7 @@ void main() {
 
     group('toString', () {
       test('redacts sensitive fields', () {
-        final userData = RedditUserData(
+        const userData = RedditUserData(
           email: 'sensitive@example.com',
           externalId: 'secret-id',
           idfa: 'secret-idfa',
@@ -201,7 +201,7 @@ void main() {
       });
 
       test('shows non-sensitive fields', () {
-        final userData = RedditUserData(
+        const userData = RedditUserData(
           screenDimensions: '1920x1080',
         );
 
@@ -211,7 +211,7 @@ void main() {
       });
 
       test('truncates long user agent', () {
-        final userData = RedditUserData(
+        const userData = RedditUserData(
           userAgent:
               'This is a very long user agent string that should be truncated',
         );
@@ -222,7 +222,7 @@ void main() {
       });
 
       test('omits null fields', () {
-        final userData = RedditUserData(
+        const userData = RedditUserData(
           email: 'test@example.com',
         );
 

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:reddit_pixel/reddit_pixel.dart';
 
@@ -23,8 +25,9 @@ void main() async {
   runApp(const RedditPixelExampleApp());
 }
 
-/// Main application widget.
+/// Main application widget for the Reddit Pixel example.
 class RedditPixelExampleApp extends StatelessWidget {
+  /// Creates the example app.
   const RedditPixelExampleApp({super.key});
 
   @override
@@ -42,6 +45,7 @@ class RedditPixelExampleApp extends StatelessWidget {
 
 /// Home page with buttons to trigger different events.
 class ExampleHomePage extends StatefulWidget {
+  /// Creates the home page.
   const ExampleHomePage({super.key});
 
   @override
@@ -55,7 +59,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
   @override
   void initState() {
     super.initState();
-    _updatePendingCount();
+    unawaited(_updatePendingCount());
   }
 
   Future<void> _updatePendingCount() async {
@@ -65,7 +69,10 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
     });
   }
 
-  Future<void> _trackEvent(String eventName, Future<void> Function() track) async {
+  Future<void> _trackEvent(
+    String eventName,
+    Future<void> Function() track,
+  ) async {
     setState(() {
       _status = 'Tracking $eventName...';
     });
@@ -75,7 +82,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
       setState(() {
         _status = '$eventName tracked successfully!';
       });
-    } catch (e) {
+    } on Exception catch (e) {
       setState(() {
         _status = 'Error tracking $eventName: $e';
       });
@@ -133,7 +140,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
                   value: 99.99,
                   currency: 'USD',
                   itemCount: 2,
-                  userData: RedditUserData(
+                  userData: const RedditUserData(
                     email: 'customer@example.com',
                     externalId: 'user-123',
                   ),
@@ -147,7 +154,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
               onPressed: () => _trackEvent(
                 'SignUp',
                 () => RedditPixel.instance.trackSignUp(
-                  userData: RedditUserData(
+                  userData: const RedditUserData(
                     email: 'newuser@example.com',
                   ),
                 ),
@@ -160,10 +167,10 @@ class _ExampleHomePageState extends State<ExampleHomePage> {
               onPressed: () => _trackEvent(
                 'Lead',
                 () => RedditPixel.instance.trackLead(
-                  userData: RedditUserData(
+                  userData: const RedditUserData(
                     email: 'lead@example.com',
                   ),
-                  customData: {'lead_source': 'contact_form'},
+                  customData: const {'lead_source': 'contact_form'},
                 ),
               ),
             ),
@@ -332,7 +339,8 @@ class AppIdentityProvider implements RedditIdentityProvider {
     try {
       // On iOS, first check ATT status
       if (Platform.isIOS) {
-        final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+        final status =
+            await AppTrackingTransparency.trackingAuthorizationStatus;
         if (status != TrackingStatus.authorized) {
           return null;
         }
@@ -350,7 +358,8 @@ class AppIdentityProvider implements RedditIdentityProvider {
   Future<bool> isTrackingEnabled() async {
     try {
       if (Platform.isIOS) {
-        final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+        final status =
+            await AppTrackingTransparency.trackingAuthorizationStatus;
         return status == TrackingStatus.authorized;
       }
 
