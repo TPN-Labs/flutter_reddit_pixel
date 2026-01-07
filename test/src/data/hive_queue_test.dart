@@ -28,7 +28,7 @@ void main() {
     await Hive.close();
 
     // Clean up temp directory
-    if (await tempDir.exists()) {
+    if (tempDir.existsSync()) {
       await tempDir.delete(recursive: true);
     }
   });

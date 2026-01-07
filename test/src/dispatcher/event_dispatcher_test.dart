@@ -41,7 +41,7 @@ void main() {
     await queue.dispose();
     await Hive.close();
 
-    if (await tempDir.exists()) {
+    if (tempDir.existsSync()) {
       await tempDir.delete(recursive: true);
     }
   });
